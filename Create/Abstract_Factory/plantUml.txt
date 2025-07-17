@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package abstract <<Folder>> {
+  interface WidgetFactory {
+    +createScrollBar() : ScrollBar
+    +createWindow()    : Window
+  }
+  interface ScrollBar
+  interface Window
+}
+
+package concrete <<Folder>> {
+  class MotifFactory {
+    +createScrollBar() : MotifScrollBar
+    +createWindow()    : MotifWindow
+  }
+  class PMFactory {
+    +createScrollBar() : PMScrollBar
+    +createWindow()    : PMWindow
+  }
+  class MotifScrollBar
+  class MotifWindow
+  class PMScrollBar
+  class PMWindow
+}
+
+' 继承
+MotifFactory ..|> WidgetFactory
+PMFactory    ..|> WidgetFactory
+MotifScrollBar ..|> ScrollBar
+MotifWindow    ..|> Window
+PMScrollBar    ..|> ScrollBar
+PMWindow       ..|> Window
+
+' 创建/依赖
+MotifFactory ..> MotifScrollBar : <<create>>
+MotifFactory ..> MotifWindow    : <<create>>
+PMFactory    ..> PMScrollBar    : <<create>>
+PMFactory    ..> PMWindow       : <<create>>
+
+note top of WidgetFactory
+  抽象工厂：一次创建一族
+  相关/兼容的对象
+end note
+@enduml
