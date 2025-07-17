@@ -1,0 +1,52 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' === 角色 ===
+interface Builder {
+    +convertCharacter(ch : char)
+    +convertFontChange(f : Font)
+    +convertParagraph()
+}
+
+class RTFReader {
+    -builder : Builder
+    +setBuilder(b : Builder)
+    +parseRTF(doc : str)
+}
+
+note right of RTFReader::parseRTF
+  内部算法：
+  1. 扫描标记
+  2. 按类型调用
+     builder.convertXxx()
+  3. 完成后取结果
+end note
+
+class ASCIIBuilder  {
+    -result : str
+    +convertCharacter(ch)
+    +convertFontChange(f)
+    +convertParagraph()
+    +getASCIIText() : str
+}
+
+class TeXBuilder {
+    -result : str
+    +convertCharacter(ch)
+    +convertFontChange(f)
+    +convertParagraph()
+    +getTeXText() : str
+}
+
+note bottom of ASCIIBuilder
+  只追加纯文本
+end note
+note bottom of TeXBuilder
+  追加 TeX 标记
+end note
+
+' === 关系 ===
+RTFReader --> Builder : uses >
+ASCIIBuilder ..|> Builder
+TeXBuilder     ..|> Builder
+@enduml
