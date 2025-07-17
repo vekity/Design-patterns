@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' === 抽象 ===
+interface Graphic {
+    +draw(position)
+    +clone()  Graphic
+}
+
+class GraphicTool {
+    -prototype  Graphic
+    +GraphicTool(p  Graphic)
+    +clickAt(pos)
+}
+
+' === 具体原型 ===
+class WholeNote {
+    +draw(pos)
+    +clone()  WholeNote
+}
+
+class HalfNote {
+    +draw(pos)
+    +clone()  HalfNote
+}
+
+' === 关系 ===
+GraphicTool -- Graphic  uses 
+Graphic .. WholeNote
+Graphic .. HalfNote
+
+note top of Graphic
+  所有音符都实现 clone()
+  返回自身的一份拷贝
+end note
+@enduml
