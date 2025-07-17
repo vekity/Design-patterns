@@ -1,0 +1,19 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class PrinterSpooler {
+    -{static} instance : PrinterSpooler
+    -PrinterSpooler()
+    +{static} getInstance() : PrinterSpooler
+    +addJob(job : String)
+}
+
+note top of PrinterSpooler
+  构造器私有
+  唯一实例惰性创建
+end note
+
+note right of PrinterSpooler::getInstance
+  返回同一个对象引用
+end note
+@enduml
