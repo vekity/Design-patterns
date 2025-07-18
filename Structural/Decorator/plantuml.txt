@@ -1,0 +1,34 @@
+@startuml
+skinparam style plain
+
+interface VisualComponent {
+  + draw()
+}
+
+class TextView {
+  + draw()
+}
+
+abstract class Decorator {
+  # component : VisualComponent
+  + draw()
+}
+
+class ScrollDecorator {
+  + draw()
+  + scrollTo()
+}
+
+class BorderDecorator {
+  + draw()
+  + drawBorder()
+}
+
+VisualComponent <|.. TextView
+VisualComponent <|.. Decorator
+Decorator o-- VisualComponent : points to >
+ScrollDecorator --|> Decorator
+BorderDecorator --|> Decorator
+
+Client --> VisualComponent
+@enduml
