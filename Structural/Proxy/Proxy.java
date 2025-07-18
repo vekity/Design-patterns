@@ -90,7 +90,7 @@ public class Demo {
     public static void main(String[] args) {
         Graphic docImage = new ImageProxy("cat.jpg");
 
-        // 第一次只拿尺寸，不触发加载
+        // 第一次只拿尺寸，不触发加载 （指从磁盘加载Image到内存）
         System.out.println("Extent: " + docImage.getExtent());
 
         // 真正绘制时才加载
