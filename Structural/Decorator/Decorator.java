@@ -45,6 +45,6 @@ public class DecoratorDemo {
         VisualComponent c = new BorderDecorator(
                                 new ScrollDecorator(
                                     new TextView()), 3);
-        c.draw();   // 实际调用链：Border→Scroll→TextView
+        c.draw();   // 实际调用链：Border.draw()→Scroll.draw()→TextView.draw() -> ScrollDecorator.draw()中额外的逻辑 → BorderDecorator.draw()中额外的逻辑（后两段是装饰器在转发后做的额外动作）
     }
 }
