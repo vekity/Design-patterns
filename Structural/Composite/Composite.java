@@ -46,5 +46,7 @@ class CompositeDemo {
         root.add(sub);
 
         root.draw();   // 一次性递归绘制整棵树
-    }
+                    //  调用5次draw() root.draw() -> root.children[0].draw() , root.children[1].draw() , root.children[2].draw()->root.children[2][0].draw , root.children[2][1].draw()
+                    //                                  Line() , Text() , Picture()  ;而Picture() : Line()  Text()  
+     }
 }
