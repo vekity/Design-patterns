@@ -1,0 +1,27 @@
+@startuml
+!theme plain
+
+interface Shape {
+  + BoundingBox()
+  + IsEmpty()
+  + CreateManipulator()
+}
+
+class TextView {
+  + GetOrigin()
+  + GetExtent()
+  + IsEmpty()
+}
+
+class TextShape {
+  - text : TextView
+  + BoundingBox()
+  + IsEmpty()
+  + CreateManipulator()
+}
+
+DrawingEditor --> Shape
+TextShape ..|> Shape
+TextShape o-- TextView : delegates >>
+
+@enduml
