@@ -1,0 +1,27 @@
+@startuml
+skinparam style plain
+
+' 抽象层
+interface Window {
+  + drawRect(x1,y1,x2,y2)
+  + drawText(text,x,y)
+}
+class ApplicationWindow
+class IconWindow
+
+' 实现层
+interface WindowImp {
+  + deviceRect(x1,y1,x2,y2)
+  + deviceText(text,x,y)
+}
+class XWindowImp
+class PMWindowImp
+
+' 桥接关系
+Window -- WindowImp  delegates 
+ApplicationWindow .. Window
+IconWindow      .. Window
+XWindowImp      .. WindowImp
+PMWindowImp     .. WindowImp
+
+@enduml
