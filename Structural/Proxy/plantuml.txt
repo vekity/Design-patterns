@@ -1,0 +1,32 @@
+@startuml
+!theme plain
+
+interface Graphic {
+  + draw() : void
+  + getExtent() : String
+}
+
+class Image {
+  - fileName : String
+  + Image(fileName : String)
+  + draw() : void
+  + getExtent() : String
+  - loadFromDisk() : void
+}
+
+class ImageProxy {
+  - fileName : String
+  - realImage : Image
+  - extentCache : String
+  + ImageProxy(fileName : String)
+  + draw() : void
+  + getExtent() : String
+  - getRealImage() : Image
+}
+
+Client --> Graphic
+Graphic <|.. Image
+Graphic <|.. ImageProxy
+ImageProxy --> Image : <<create>>
+
+@enduml
