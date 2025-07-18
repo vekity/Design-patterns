@@ -1,0 +1,33 @@
+@startuml
+skinparam style plain
+
+interface Graphic {
+  + draw()
+  + add(Graphic)
+  + remove(Graphic)
+  + getChild(int)
+}
+
+class Line {
+  + draw()
+}
+
+class Text {
+  + draw()
+}
+
+class Picture {
+  - children : List<Graphic>
+  + draw()
+  + add(Graphic)
+  + remove(Graphic)
+  + getChild(int)
+}
+
+Graphic <|.. Line
+Graphic <|.. Text
+Graphic <|.. Picture
+Picture o-- Graphic : contains *
+
+Client --> Graphic : uses >>
+@enduml
