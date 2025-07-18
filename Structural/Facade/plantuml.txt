@@ -1,0 +1,22 @@
+@startuml
+package "子系统" {
+  class Scanner
+  class Parser
+  class ProgramNodeBuilder
+  class RISCCodeGenerator
+  class BytecodeStream
+}
+
+class Compiler {
+  +compile(istream, BytecodeStream)
+}
+
+hide empty fields
+hide empty methods
+
+Compiler --> Scanner
+Compiler --> Parser
+Compiler --> ProgramNodeBuilder
+Compiler --> RISCCodeGenerator
+Compiler --> BytecodeStream
+@enduml
