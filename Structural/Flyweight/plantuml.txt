@@ -1,0 +1,39 @@
+@startuml
+skinparam style plain
+
+' 抽象享元
+interface Glyph {
+  + draw(context: GlyphContext)
+}
+
+' 具体享元（内部状态：字符码）
+class Character {
+  - charCode: char
+  + draw(context)
+}
+
+' 非共享组合（外部状态：子节点）
+class Row {
+  - children: List<Glyph>
+  + draw(context)
+}
+
+' 外部状态载体
+class GlyphContext {
+  + getFont(index): Font
+  + setFont(font, span)
+}
+
+' 工厂
+class GlyphFactory {
+  - pool[128]: Character
+  + createCharacter(c): Character
+  + createRow(): Row
+}
+
+Glyph <|.. Character
+Glyph <|.. Row
+GlyphFactory --> Character : creates / manages >
+Client --> GlyphFactory : uses >>
+Client --> GlyphContext : provides external state >>
+@enduml
