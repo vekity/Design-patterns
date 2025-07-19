@@ -1,0 +1,50 @@
+@startuml
+
+abstract class DialogDirector {
+    +ShowDialog()
+    +WidgetChanged(widget: Widget*)
+    +CreateWidgets()
+}
+
+class FontDialogDirector {
+    +WidgetChanged(widget: Widget*)
+    +CreateWidgets()
+    -_ok: Button*
+    -_cancel: Button*
+    -_fontList: ListBox*
+    -_fontName: EntryField*
+}
+
+abstract class Widget {
+    -_director: DialogDirector*
+    +Changed()
+    +HandleMouse(event: MouseEvent&)
+}
+
+class ListBox {
+    +GetSelection(): const char*
+    +SetList(items: List<char*>*)
+}
+
+class EntryField {
+    +SetText(text: const char*)
+    +GetText(): const char*
+}
+
+class Button {
+    +SetText(text: const char*)
+    +HandleMouse(event: MouseEvent&)
+}
+
+DialogDirector <|-- FontDialogDirector
+Widget <|-- ListBox
+Widget <|-- EntryField
+Widget <|-- Button
+
+FontDialogDirector --> Button
+FontDialogDirector --> ListBox
+FontDialogDirector --> EntryField
+
+Widget --> DialogDirector
+
+@enduml
